@@ -1,5 +1,12 @@
 packages:
   - apps/*
   - packages/*
+injectWorkspacePackages: true
 onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@prisma/engines'
+  - '@swc/core'
   - esbuild
+  - prisma
+syncInjectedDepsAfterScripts:
+  - build
