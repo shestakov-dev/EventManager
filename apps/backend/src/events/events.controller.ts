@@ -42,8 +42,21 @@ export class EventsController {
 		type: EventEntity,
 		errorResponses: [],
 	})
-	findAll(@Query("filter") filter: EventFindManyDto) {
-		return this.eventsService.findAll(filter);
+	findAll() {
+		return this.eventsService.findAll();
+	}
+
+	/**
+	 * Get all events with a specific filter
+	 */
+	@Post("filtered")
+	@ApiPost({
+		type: EventEntity,
+		errorResponses: [],
+	})
+	findAllFiltered(@Body() filter: EventFindManyDto) {
+		console.log("Filter:", filter);
+		return this.eventsService.findAllFiltered(filter);
 	}
 
 	/**

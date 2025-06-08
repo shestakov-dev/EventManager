@@ -46,7 +46,18 @@ export class EventsService {
 		);
 	}
 
-	async findAll(filter?: Prisma.EventWhereInput) {
+	async findAll() {
+		const events = await this.prisma.event.findMany({
+			include: {
+				type: true,
+				lecturers: true,
+			},
+		});
+
+		return events.map(event => plainToInstance(EventEntity, event));
+	}
+
+	async findAllFiltered(filter: Prisma.EventWhereInput) {
 		const events = await this.prisma.event.findMany({
 			where: filter,
 			include: {
