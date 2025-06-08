@@ -36,14 +36,12 @@ services:
   db:
     image: postgres:15-alpine
     restart: unless-stopped
-    ports:
-      - "5433:5432"
     env_file:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
-    # networks:
-    #   - backend-network
+    networks:
+      - backend-network
 
 volumes:
   pgdata:

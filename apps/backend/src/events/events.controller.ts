@@ -55,7 +55,6 @@ export class EventsController {
 		errorResponses: [],
 	})
 	findAllFiltered(@Body() filter: EventFindManyDto) {
-		console.log("Filter:", filter);
 		return this.eventsService.findAllFiltered(filter);
 	}
 
