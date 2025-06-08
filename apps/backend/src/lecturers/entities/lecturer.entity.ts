@@ -6,25 +6,25 @@ import { Lecturer } from "@prisma/client";
 })
 export class LecturerEntity implements Lecturer {
 	/**
-	 * The unique identifier for the lecturer.
+	 * The unique identifier for the lecturer
 	 * @example "123e4567-e89b-12d3-a456-426614174000"
 	 */
 	id: string;
 
 	/**
-	 * The name of the lecturer.
+	 * The name of the lecturer
 	 * @example "John Doe"
 	 */
 	name: string;
 
 	/**
-	 * The email address of the lecturer.
+	 * The email address of the lecturer
 	 * @example "johndoe@example.com"
 	 */
 	email: string;
 
 	/**
-	 * The phone number of the lecturer.
+	 * The phone number of the lecturer
 	 * @example "+14155552671"
 	 * @default null
 	 */

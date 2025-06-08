@@ -9,5 +9,6 @@ import { LecturersService } from "./lecturers.service";
 	controllers: [LecturersController],
 	providers: [LecturersService],
 	imports: [PrismaModule],
+	exports: [LecturersService],
 })
 export class LecturersModule {}

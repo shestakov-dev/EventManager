@@ -12,7 +12,7 @@ import {
 })
 export class CreateLecturerDto {
 	/**
-	 * The name of the lecturer.
+	 * The name of the lecturer
 	 * @example "John Doe"
 	 */
 	@IsString()
@@ -20,14 +20,14 @@ export class CreateLecturerDto {
 	name: string;
 
 	/**
-	 * The email address of the lecturer.
+	 * The email address of the lecturer
 	 * @example "johndoe@example.com"
 	 */
 	@IsEmail()
 	email: string;
 
 	/**
-	 * The phone number of the lecturer.
+	 * The phone number of the lecturer
 	 * @example "+14155552671"
 	 */
 	@IsOptional()

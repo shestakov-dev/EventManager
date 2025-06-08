@@ -6,7 +6,7 @@ import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 })
 export class CreateEventTypeDto {
 	/**
-	 * The name of the event type.
+	 * The name of the event type
 	 * @example "Conference"
 	 */
 	@IsString()
@@ -14,8 +14,8 @@ export class CreateEventTypeDto {
 	name: string;
 
 	/**
-	 * A brief description of the event type.
-	 * @example "A large gathering of people for a conference."
+	 * A brief description of the event type
+	 * @example "A large gathering of people"
 	 */
 	@IsOptional()
 	@IsString()

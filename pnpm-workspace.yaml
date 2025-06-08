@@ -10,5 +10,6 @@ onlyBuiltDependencies:
   - '@swc/core'
   - esbuild
   - prisma
+  - unrs-resolver
 syncInjectedDepsAfterScripts:
   - build
