@@ -4,6 +4,7 @@ packages:
 injectWorkspacePackages: true
 onlyBuiltDependencies:
   - '@nestjs/core'
+  - '@prisma/client'
   - '@prisma/engines'
   - '@swc/core'
   - esbuild
