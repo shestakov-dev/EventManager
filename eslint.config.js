@@ -32,4 +32,17 @@ export default defineConfig([
 		],
 	},
 	eslintPluginPrettierRecommended,
+	{
+		settings: {
+			"import/resolver": {
+				node: {
+					extensions: [".js", ".jsx", ".ts", ".tsx"],
+				},
+				typescript: {
+					extensions: [".js", ".jsx", ".ts", ".tsx"],
+					project: "tsconfig.json",
+				},
+			},
+		},
+	},
 ]);

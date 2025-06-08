@@ -13,7 +13,7 @@ This project was created to help manage and display information about IT confere
 - City
 - Date
 - Type (conference, training, workshop, etc.)
-- Speaker(s)
+- Lecturer(s)
 
 The system supports sorting events by title, date, type, city, or any combination. Special sorting rules are applied for certain cities and event names.
 

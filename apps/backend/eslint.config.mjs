@@ -95,34 +95,6 @@ export default [
 						["parent", "sibling", "index"],
 					],
 
-					"pathGroups": [
-						{
-							pattern: "@resources/**",
-							group: "internal",
-							position: "before",
-						},
-						{
-							pattern: "@shared/**",
-							group: "internal",
-							position: "before",
-						},
-						{
-							pattern: "@decorators/**",
-							group: "internal",
-							position: "before",
-						},
-						{
-							pattern: "@prisma/**",
-							group: "internal",
-							position: "before",
-						},
-						{
-							pattern: "*",
-							group: "internal",
-							position: "after",
-						},
-					],
-
 					"newlines-between": "always",
 
 					"alphabetize": {
