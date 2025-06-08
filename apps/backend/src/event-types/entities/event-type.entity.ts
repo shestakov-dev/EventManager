@@ -2,13 +2,9 @@ import { ApiSchema } from "@nestjs/swagger";
 import { EventType } from "@prisma/client";
 
 @ApiSchema({
-	description: "The data returned for an event type object.",
+	description: "An event type object",
 })
 export class EventTypeEntity implements EventType {
-	constructor(partial: Partial<EventTypeEntity>) {
-		Object.assign(this, partial);
-	}
-
 	/**
 	 * The unique identifier for the event type.
 	 * @example "123e4567-e89b-12d3-a456-426614174000"
@@ -23,7 +19,7 @@ export class EventTypeEntity implements EventType {
 
 	/**
 	 * A brief description of the event type.
-	 * @example "A large gathering of people for a conference."
+	 * @example "A large gathering of people."
 	 * @default null
 	 */
 	description: string | null = null;

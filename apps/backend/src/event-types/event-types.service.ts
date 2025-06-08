@@ -2,9 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { plainToInstance } from "class-transformer";
 
 import { PrismaService } from "../prisma/prisma.service";
-import { EventTypeEntity } from "./dtos/entities/event-type.entity";
-import { CreateEventTypeDto } from "./dtos/requests/create-event-type.dto";
-import { UpdateEventTypeDto } from "./dtos/requests/update-event-type.dto";
+import { CreateEventTypeDto } from "./dto/create-event-type.dto";
+import { UpdateEventTypeDto } from "./dto/update-event-type.dto";
+import { EventTypeEntity } from "./entities/event-type.entity";
 
 @Injectable()
 export class EventTypesService {

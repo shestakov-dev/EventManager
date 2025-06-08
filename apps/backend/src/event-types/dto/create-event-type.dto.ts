@@ -2,7 +2,7 @@ import { ApiSchema } from "@nestjs/swagger";
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 @ApiSchema({
-	description: "The data required to create a new event type.",
+	description: "The data required to create a new event type",
 })
 export class CreateEventTypeDto {
 	/**
