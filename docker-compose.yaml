@@ -1,0 +1,47 @@
+networks:
+  frontend-network:
+  backend-network:
+
+services:
+  frontend:
+    build:
+      context: .
+      target: frontend
+    ports:
+      - "5173:5173"
+    environment:
+      NODE_ENV: production
+    networks:
+      - frontend-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      target: backend
+    ports:
+      - "8393:8393"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    depends_on:
+      - db
+    networks:
+      - backend-network
+      - frontend-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+volumes:
+  pgdata:

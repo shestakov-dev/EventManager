@@ -1,0 +1,25 @@
+# Node modules and build output
+node_modules/
+dist/
+
+# Environment and secrets
+.env
+*.env
+
+# Logs
+*.log
+pnpm-debug.log
+npm-debug.log
+
+# Editor and OS files
+.vscode/
+.DS_Store
+
+# Git and docs
+.git/
+.gitignore
+*.md
+
+# Misc
+*.swp
+*.bak
