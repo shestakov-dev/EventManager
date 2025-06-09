@@ -20,7 +20,7 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-	BASE: "http://localhost:8393",
+	BASE: import.meta.env.VITE_BACKEND_URL,
 	VERSION: "1.0",
 	WITH_CREDENTIALS: false,
 	CREDENTIALS: "include",

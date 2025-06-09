@@ -19,12 +19,12 @@ export type CreateEventDto = {
      */
     date: string;
     /**
-     * The unique identifier for the event type of this event
+     * The type of the event
      */
-    typeId: string;
+    type: string;
     /**
-     * The unique identifiers for the lecturers of this event (at least one is required)
+     * The lecturers of this event
      */
-    lecturerIds: Array<string>;
+    lecturers: Array<string>;
 };
 

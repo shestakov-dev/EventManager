@@ -34,10 +34,10 @@ export default function EventsTable() {
 									"en-UK"
 								)}
 							</TableCell>
-							<TableCell>{event.type.name}</TableCell>
+							<TableCell>{event.type}</TableCell>
 							<TableCell>
 								{event.lecturers
-									.map(lecturer => lecturer.name)
+									.map(lecturer => lecturer)
 									.join(", ")}
 							</TableCell>
 						</TableRow>

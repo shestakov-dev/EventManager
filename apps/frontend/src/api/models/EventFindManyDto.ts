@@ -20,7 +20,7 @@ export type EventFindManyDto = {
      */
     type?: Record<string, any>;
     /**
-     * Filter by lecturers associated with the event
+     * Filter by event lecturers
      */
     lecturers?: Record<string, any>;
 };

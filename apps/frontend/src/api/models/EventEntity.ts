@@ -2,8 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { EventTypeEntity } from './EventTypeEntity';
-import type { LecturerEntity } from './LecturerEntity';
 /**
  * An event object
  */
@@ -25,16 +23,12 @@ export type EventEntity = {
      */
     date: string;
     /**
-     * The unique identifier for the event type of this event
-     */
-    typeId: string;
-    /**
      * The event type of the event
      */
-    type: EventTypeEntity;
+    type: string;
     /**
      * The lecturers of this event
      */
-    lecturers: Array<LecturerEntity>;
+    lecturers: Array<string>;
 };
 
