@@ -1,5 +1,6 @@
 import {
 	EventsService,
+	type CreateEventDto,
 	type EventEntity,
 	type EventFindManyDto,
 	type UpdateEventDto,
@@ -20,6 +21,20 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 			.catch(error => toast.error(error));
 	}, [filter]);
 
+	const handleCreate = (newEvent: CreateEventDto) => {
+		EventsService.eventsControllerCreate(newEvent)
+			.then(createdEvent => {
+				setEvents(prevEvents => [...prevEvents, createdEvent]);
+
+				toast.success("Event created successfully");
+			})
+			.catch(error => {
+				toast.error(
+					`Failed to create event: ${error.body.message ?? error}`
+				);
+			});
+	};
+
 	const handleUpdate = (id: string, updatedEvent: UpdateEventDto) => {
 		EventsService.eventsControllerUpdate(id, updatedEvent)
 			.then(updated => {
@@ -28,6 +43,7 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 						event.id === updated.id ? updated : event
 					)
 				);
+
 				toast.success("Event updated successfully");
 			})
 			.catch(error => {
@@ -60,6 +76,7 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 				setEvents,
 				filter,
 				setFilter,
+				handleCreate,
 				handleUpdate,
 				handleDelete,
 			}}>

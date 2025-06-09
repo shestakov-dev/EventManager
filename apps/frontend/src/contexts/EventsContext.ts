@@ -1,4 +1,9 @@
-import type { EventEntity, EventFindManyDto, UpdateEventDto } from "@/api";
+import type {
+	CreateEventDto,
+	EventEntity,
+	EventFindManyDto,
+	UpdateEventDto,
+} from "@/api";
 import { createContext } from "react";
 
 export const EventsContext = createContext<{
@@ -6,6 +11,7 @@ export const EventsContext = createContext<{
 	setEvents: React.Dispatch<React.SetStateAction<EventEntity[]>>;
 	filter: EventFindManyDto;
 	setFilter: React.Dispatch<React.SetStateAction<EventFindManyDto>>;
+	handleCreate: (newEvent: CreateEventDto) => void;
 	handleUpdate: (id: string, updatedEvent: UpdateEventDto) => void;
 	handleDelete: (id: string) => void;
 }>({
@@ -13,6 +19,7 @@ export const EventsContext = createContext<{
 	setEvents: () => {},
 	filter: {},
 	setFilter: () => {},
+	handleCreate: () => {},
 	handleUpdate: () => {},
 	handleDelete: () => {},
 });
