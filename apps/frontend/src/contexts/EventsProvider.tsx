@@ -1,6 +1,7 @@
 import { EventsService, type EventEntity, type EventFindManyDto } from "@/api";
 import React, { useEffect } from "react";
 import { EventsContext } from "./EventsContext";
+import { toast } from "sonner";
 
 export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
@@ -11,7 +12,7 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		EventsService.eventsControllerFindAllFiltered(filter)
 			.then(data => setEvents(data))
-			.catch(error => console.log(error));
+			.catch(error => toast.error(error));
 	}, [filter]);
 
 	return (
