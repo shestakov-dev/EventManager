@@ -7,6 +7,10 @@ services:
     build:
       context: .
       target: frontend
+      args:
+        # In a real app we shouldn't use localhost but rather
+        # have a gateway that points to the backend service
+        VITE_BACKEND_URL: http://localhost:8393
     ports:
       - "5173:5173"
     environment:
@@ -36,6 +40,8 @@ services:
   db:
     image: postgres:15-alpine
     restart: unless-stopped
+    # ports:
+    #   - "5433:5432"
     env_file:
       - .env
     volumes:
