@@ -38,7 +38,7 @@ export class LecturersController {
 	 */
 	@Get()
 	@ApiGet({
-		type: LecturerEntity,
+		type: [LecturerEntity],
 		errorResponses: [],
 	})
 	findAll() {

@@ -37,7 +37,7 @@ export class EventTypesController {
 	 */
 	@Get()
 	@ApiGet({
-		type: EventTypeEntity,
+		type: [EventTypeEntity],
 		errorResponses: [],
 	})
 	async findAll() {

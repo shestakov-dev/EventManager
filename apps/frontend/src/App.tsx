@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { EventsService } from "./api";
 
 function App() {
 	const [events, setEvents] = useState<Record<string, unknown>[]>([]);
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_BACKEND_URL}/events`)
-			.then(response => response.json())
+		EventsService.eventsControllerFindAll()
 			.then(data => {
 				setEvents(data);
 			})

@@ -39,7 +39,7 @@ export class EventsController {
 	 */
 	@Get()
 	@ApiGet({
-		type: EventEntity,
+		type: [EventEntity],
 		errorResponses: [],
 	})
 	findAll() {
@@ -51,7 +51,7 @@ export class EventsController {
 	 */
 	@Post("filtered")
 	@ApiPost({
-		type: EventEntity,
+		type: [EventEntity],
 		errorResponses: [],
 	})
 	findAllFiltered(@Body() filter: EventFindManyDto) {
