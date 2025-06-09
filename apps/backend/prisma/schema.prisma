@@ -7,23 +7,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model EventType {
-    id          String  @id @default(uuid()) @db.Uuid
-    name        String
-    description String?
-    events      Event[]
-}
-
-model Lecturer {
-    id String @id @default(uuid()) @db.Uuid
-
-    name  String
-    email String  @unique
-    phone String?
-
-    events Event[]
-}
-
 model Event {
     id String @id @default(uuid()) @db.Uuid
 
@@ -31,8 +14,7 @@ model Event {
     city String
     date DateTime
 
-    typeId String    @db.Uuid
-    type   EventType @relation(fields: [typeId], references: [id])
+    type String
 
-    lecturers Lecturer[]
+    lecturers String[]
 }

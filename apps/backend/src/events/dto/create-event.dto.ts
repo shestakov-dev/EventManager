@@ -1,12 +1,6 @@
 import { ApiSchema } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import {
-	ArrayMinSize,
-	IsDate,
-	IsNotEmpty,
-	IsString,
-	IsUUID,
-} from "class-validator";
+import { ArrayMinSize, IsDate, IsNotEmpty, IsString } from "class-validator";
 
 @ApiSchema({
 	description: "The data required to create a new event",
@@ -32,25 +26,25 @@ export class CreateEventDto {
 	 * The date and time when the event starts
 	 * @example "2023-10-01T10:00:00Z"
 	 */
-	@IsNotEmpty()
 	@IsDate()
+	@IsNotEmpty()
 	@Type(() => Date)
 	date: Date;
 
 	/**
-	 * The unique identifier for the event type of this event
-	 * @example "123e4567-e89b-12d3-a456-426614174001"
+	 * The type of the event
+	 * @example "Conference"
 	 */
 	@IsString()
-	@IsUUID()
-	typeId: string;
+	@IsNotEmpty()
+	type: string;
 
 	/**
-	 * The unique identifiers for the lecturers of this event (at least one is required)
-	 * @example ["123e4567-e89b-12d3-a456-426614174002", "123e4567-e89b-12d3-a456-426614174003"]
+	 * The lecturers of this event
+	 * @example ["Pesho", "Gosho"]
 	 */
 	@ArrayMinSize(1)
 	@IsString({ each: true })
-	@IsUUID(undefined, { each: true })
-	lecturerIds: string[];
+	@IsNotEmpty({ each: true })
+	lecturers: string[];
 }

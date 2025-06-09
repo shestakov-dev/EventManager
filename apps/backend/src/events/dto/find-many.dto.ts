@@ -12,7 +12,7 @@ export class EventFindManyDto implements Prisma.EventWhereInput {
 		example: { contains: "Dev Bites" },
 	})
 	@IsOptional()
-	name?: Prisma.StringFilter<"Event">;
+	name?: string | Prisma.StringFilter<"Event">;
 
 	/**
 	 * Filter by event city
@@ -23,7 +23,7 @@ export class EventFindManyDto implements Prisma.EventWhereInput {
 		example: { contains: "Sofia" },
 	})
 	@IsOptional()
-	city?: Prisma.StringFilter<"Event">;
+	city?: string | Prisma.StringFilter<"Event">;
 
 	/**
 	 * Filter by event date
@@ -34,37 +34,27 @@ export class EventFindManyDto implements Prisma.EventWhereInput {
 		example: { lte: "2023-10-01T10:00:00Z" },
 	})
 	@IsOptional()
-	date?: Prisma.DateTimeFilter<"Event">;
+	date?: string | Prisma.DateTimeFilter<"Event"> | Date;
 
 	/**
 	 * Filter by event type
-	 * @example { name: { contains: "Conference" } }
+	 * @example { contains: "Conference" }
 	 */
 	@ApiPropertyOptional({
 		description: "Filter by event type",
-		example: { name: { contains: "Conference" } },
+		example: { contains: "Conference" },
 	})
 	@IsOptional()
-	type?:
-		| (Prisma.Without<
-				Prisma.EventTypeScalarRelationFilter,
-				Prisma.EventTypeWhereInput
-		  > &
-				Prisma.EventTypeWhereInput)
-		| (Prisma.Without<
-				Prisma.EventTypeWhereInput,
-				Prisma.EventTypeScalarRelationFilter
-		  > &
-				Prisma.EventTypeScalarRelationFilter);
+	type?: string | Prisma.StringFilter<"Event">;
 
 	/**
-	 * Filter by lecturers associated with the event
-	 * @example { some: { name: { contains: "John Doe" } } }
+	 * Filter by event lecturers
+	 * @example { has: "Pesho" }
 	 */
 	@ApiPropertyOptional({
-		description: "Filter by lecturers associated with the event",
-		example: { some: { name: { contains: "John Doe" } } },
+		description: "Filter by event lecturers",
+		example: { has: "Pesho" },
 	})
 	@IsOptional()
-	lecturers?: Prisma.LecturerListRelationFilter;
+	lecturers?: Prisma.StringNullableListFilter<"Event">;
 }

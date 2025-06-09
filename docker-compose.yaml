@@ -23,6 +23,7 @@ services:
     build:
       context: .
       target: backend
+    # port is forwarded for development purposes only
     ports:
       - "8393:8393"
     env_file:
@@ -40,8 +41,9 @@ services:
   db:
     image: postgres:15-alpine
     restart: unless-stopped
-    # ports:
-    #   - "5433:5432"
+    # port is forwarded for development purposes only
+    ports:
+      - "5433:5432"
     env_file:
       - .env
     volumes:

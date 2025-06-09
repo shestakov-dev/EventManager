@@ -7,7 +7,6 @@ import {
 	Param,
 	Patch,
 	Post,
-	Query,
 } from "@nestjs/common";
 
 import { ApiDelete, ApiGet, ApiPatch, ApiPost } from "src/decorators";
