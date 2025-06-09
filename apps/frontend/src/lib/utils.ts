@@ -32,7 +32,8 @@ export function isStaraZagoraOrVarnaSpring(event: EventEntity) {
 export function filterAndSortEvents(
 	events: EventEntity[],
 	filters: FilterFunction[] = [],
-	sortBy: "name" | "date" | "type" | "city"
+	sortBy: "name" | "date" | "type" | "city",
+	sortOrder: "ascending" | "descending" = "ascending"
 ): EventEntity[] {
 	// Apply filters to the events
 	const filtered = events.filter(event =>
@@ -54,24 +55,16 @@ export function filterAndSortEvents(
 		let event2Value;
 
 		switch (sortBy) {
-			case "name":
-				event1Value = event1.name.toLowerCase();
-				event2Value = event2.name.toLowerCase();
-				break;
-
 			case "date":
 				event1Value = new Date(event1.date).getTime();
 				event2Value = new Date(event2.date).getTime();
 				break;
 
 			case "type":
-				event1Value = event1.type.name.toLowerCase();
-				event2Value = event2.type.name.toLowerCase();
-				break;
-
+			case "name":
 			case "city":
-				event1Value = event1.city.toLowerCase();
-				event2Value = event2.city.toLowerCase();
+				event1Value = event1[sortBy].toLowerCase();
+				event2Value = event2[sortBy].toLowerCase();
 				break;
 
 			// This case should never happen, but we handle it just in case
@@ -80,9 +73,9 @@ export function filterAndSortEvents(
 		}
 
 		if (event1Value < event2Value) {
-			return -1;
+			return sortOrder === "ascending" ? -1 : 1;
 		} else if (event1Value > event2Value) {
-			return 1;
+			return sortOrder === "ascending" ? 1 : -1;
 		}
 
 		return 0;
