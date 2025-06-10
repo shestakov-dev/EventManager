@@ -37,10 +37,14 @@ The system supports sorting and filtering events by title, date, type, city, or 
 
 ### Prerequisites
 
+> **Note:**
+> Node.js and pnpm are only required if using the manual setup method.
+> If you are using Docker, these tools are not necessary.
+
 - [Node.js](https://nodejs.org/) (v22.16.0 LTS recommended)
 - [pnpm](https://pnpm.io/) (v10.11.1)
 - [Docker](https://www.docker.com/) (for containerization)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Docker Compose](https://docs.docker.com/compose/) (to run using the quick start method)
 
 ### Quick Start (Recommended)
 
@@ -69,11 +73,6 @@ If you prefer running locally without Docker:
 2. **Set up environment variables for the backend:**
 
     Create a `.env` file in `apps/backend` by copying `apps/backend/.env.example` and updating it with your actual Postgres connection string.
-
-    ```
-    cp apps/backend/.env.example apps/backend/.env
-    # Edit apps/backend/.env as needed
-    ```
 
 3. **Start the backend:**
 
