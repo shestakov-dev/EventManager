@@ -15,7 +15,7 @@ This project was created to help manage and display information about IT confere
 - Type (conference, training, workshop, etc.)
 - Lecturer(s)
 
-The system supports sorting events by title, date, type, city, or any combination. Special sorting rules are applied for certain cities and event names.
+The system supports sorting and filtering events by title, date, type, city, or any combination. Special sorting rules are applied for certain cities and event names.
 
 ---
 
@@ -75,14 +75,23 @@ If you prefer running locally without Docker:
 
 ---
 
+## Accessing the Application
+
+- **Backend API:** [http://localhost:8393](http://localhost:8393)
+    - Swagger UI: [http://localhost:8393/api](http://localhost:8393/api)
+    - Swagger JSON: [http://localhost:8393/api-json](http://localhost:8393/api-json)
+    - Swagger YAML: [http://localhost:8393/api-yaml](http://localhost:8393/api-yaml)
+- **Frontend App:** [http://localhost:5173](http://localhost:5173)
+
+---
+
 ## Project Structure
 
 ```
 apps/
   backend/   # NestJS API
   frontend/  # React app
-packages/    # Shared code
-docker-compose.yml
+docker-compose.yaml
 ```
 
 ---
@@ -90,5 +99,5 @@ docker-compose.yml
 ## Features
 
 - Manage and display IT events
-- Sort events by multiple criteria
-- Special sorting for specific cities and event names
+- Sort and filter events by multiple criteria
+- Special filtering for specific cities and event names
