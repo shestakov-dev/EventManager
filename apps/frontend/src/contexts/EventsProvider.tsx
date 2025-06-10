@@ -18,7 +18,11 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		EventsService.eventsControllerFindAllFiltered(filter)
 			.then(data => setEvents(data))
-			.catch(error => toast.error(error));
+			.catch(error => {
+				toast.error(
+					`Възникна грешка при зареждането на събитията: ${error.body.message ?? error}`
+				);
+			});
 	}, [filter]);
 
 	const handleCreate = (newEvent: CreateEventDto) => {
@@ -26,11 +30,11 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 			.then(createdEvent => {
 				setEvents(prevEvents => [...prevEvents, createdEvent]);
 
-				toast.success("Event created successfully");
+				toast.success("Събитието беше създадено успешно!");
 			})
 			.catch(error => {
 				toast.error(
-					`Failed to create event: ${error.body.message ?? error}`
+					`Възникна грешка, докато се опитвахме да създадем събитието: ${error.body.message ?? error}`
 				);
 			});
 	};
@@ -44,11 +48,11 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 					)
 				);
 
-				toast.success("Event updated successfully");
+				toast.success("Събитието беше актуализирано успешно!");
 			})
 			.catch(error => {
 				toast.error(
-					`Failed to update event: ${error.body.message ?? error}`
+					`Възникна грешка, докато се опитвахме да актуализираме събитието: ${error.body.message ?? error}`
 				);
 			});
 	};
@@ -60,11 +64,11 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({
 					prevEvents.filter(event => event.id !== id)
 				);
 
-				toast.success("Event deleted successfully");
+				toast.success("Събитието беше изтрито успешно!");
 			})
 			.catch(error => {
 				toast.error(
-					`Failed to delete event: ${error.body.message ?? error}`
+					`Възникна грешка, докато се опитвахме да изтрием събитието: ${error.body.message ?? error}`
 				);
 			});
 	};

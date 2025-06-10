@@ -46,6 +46,7 @@ export default function EventsFilterRow({
 		const subscription = form.watch(() => {
 			onChange(form.getValues());
 		});
+
 		return () => subscription.unsubscribe();
 	}, [form, form.watch, onChange]);
 

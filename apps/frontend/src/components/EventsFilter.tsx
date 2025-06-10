@@ -11,6 +11,7 @@ import {
 } from "./ui/select";
 import { Button } from "./ui/button";
 import type { EventFindManyDto } from "@/api";
+import { toast } from "sonner";
 
 type RowData = {
 	id: string;
@@ -28,6 +29,10 @@ export default function EventsFilter() {
 
 	const addRow = () => {
 		setRows(rows => [...rows, { id: crypto.randomUUID(), values: {} }]);
+
+		toast.success(
+			"Добавен е нов ред за филтриране. Можете да зададете стойности за него."
+		);
 	};
 
 	const updateRow = (id: string, values: Partial<FilterValues>) => {
@@ -38,6 +43,8 @@ export default function EventsFilter() {
 
 	const removeRow = (id: string) => {
 		setRows(rows => rows.filter(row => row.id !== id));
+
+		toast.success("Редът за филтриране е премахнат успешно!");
 	};
 
 	const applyFilter = () => {
@@ -101,6 +108,8 @@ export default function EventsFilter() {
 		);
 
 		setFilter(fullFilter);
+
+		toast.success("Филтърът е приложен успешно!");
 	};
 
 	const clearAll = () => {
@@ -108,6 +117,8 @@ export default function EventsFilter() {
 		setOperator("AND");
 
 		setFilter({});
+
+		toast.success("Всички филтри са изчистени!");
 	};
 
 	const applyPlovdivSeptemberFilter = () => {
@@ -127,6 +138,10 @@ export default function EventsFilter() {
 				},
 			},
 		]);
+
+		toast.success(
+			'Филтърът за Пловдив през септември е зададен! Използвайте бутона "Приложи", за да го активирате.'
+		);
 	};
 
 	const applyStaraZagoraVarnaSpringFilter = () => {
@@ -154,6 +169,10 @@ export default function EventsFilter() {
 				},
 			},
 		]);
+
+		toast.success(
+			'Филтърът за Стара Загора и Варна през пролетта е зададен! Използвайте бутона "Приложи", за да го активирате.'
+		);
 	};
 
 	return (
