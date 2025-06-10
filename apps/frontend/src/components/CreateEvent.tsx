@@ -35,7 +35,7 @@ export default function CreateEvent({
 	};
 
 	return (
-		<Card>
+		<Card className="flex-1">
 			<CardHeader>
 				<CardTitle>Създаване на събитие</CardTitle>
 			</CardHeader>

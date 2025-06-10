@@ -6,44 +6,45 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-type FilterFunction = (event: EventEntity) => boolean;
-
-export function isPlovdivSeptember(event: EventEntity) {
-	const date = new Date(event.date);
-
-	// Months are 0-indexed in js so index 8 is September
-	return event.city.toLowerCase() === "пловдив" || date.getMonth() === 8;
+/**
+ * Filter in the query for events in Plovdiv during September.
+{
+  "city": {
+    "equals": "Plovdiv",
+    "mode": "insensitive"
+  },
+  "date": {
+    "gte": "2025-09-01T00:00:00.000Z",
+    "lte": "2025-09-30T00:00:00.000Z"
+  }
 }
+ */
 
-export function isStaraZagoraOrVarnaSpring(event: EventEntity) {
-	const city = event.city.toLowerCase();
-	const month = new Date(event.date).getMonth();
-
-	return (
-		(city === "стара загора" || city === "варна") &&
-		// March, April or May
-		month >= 2 &&
-		month <= 4
-	);
+/**
+ * Filter in the query for events in Stara Zagora or Varna during Spring (March, April, May).
+{
+    "OR": [
+      { "city": { "equals": "Varna", "mode": "insensitive" } },
+      { "city": { "equals": "Stara Zagora", "mode": "insensitive" } }
+    ],
+    "date": {
+      "gte": "2025-03-01T00:00:00.000Z",
+      "lte": "2025-05-31T00:00:00.000Z"
+    }
 }
+ */
 
 // This function can take in client-side filters
 // and sort the events based on the provided criteria
-export function filterAndSortEvents(
+export function sortEvents(
 	events: EventEntity[],
-	filters: FilterFunction[] = [],
 	sortBy: "name" | "date" | "type" | "city",
 	sortOrder: "ascending" | "descending" = "ascending"
 ): EventEntity[] {
-	// Apply filters to the events
-	const filtered = events.filter(event =>
-		filters.every(filter => filter(event))
-	);
-
-	// Copy the filtered array to avoid mutating the original array
+	// Copy the events array to avoid mutating the original array
 	// and sort it based on the provided criteria
 	// "Dev Bites" should always come first, so we handle that separately
-	const sorted = [...filtered].sort((event1, event2) => {
+	const sorted = [...events].sort((event1, event2) => {
 		// "Dev Bites" should always come first
 		if (event1.name === "Dev Bites") {
 			return -1;

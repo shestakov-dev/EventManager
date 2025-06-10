@@ -1,17 +1,13 @@
 import { Toaster } from "sonner";
-import EventsTable from "./components/EventsTable";
 import { EventsProvider } from "./contexts/EventsProvider";
-import EventsFilter from "./components/EventsFilter";
+import Main from "./components/Main";
 
 function App() {
 	return (
-		<div className="p-6 space-y-6">
-			<EventsProvider>
-				<EventsFilter />
-				<EventsTable />
-				<Toaster />
-			</EventsProvider>
-		</div>
+		<EventsProvider>
+			<Main />
+			<Toaster />
+		</EventsProvider>
 	);
 }
 

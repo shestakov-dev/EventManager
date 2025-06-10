@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "./ui/table";
 import { EventsContext } from "@/contexts/EventsContext";
-import { filterAndSortEvents } from "@/lib/utils";
+import { sortEvents } from "@/lib/utils";
 import type { EventEntity } from "@/api";
 import EventRow from "./EventRow";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import CreateEvent from "./CreateEvent";
 
 const HEADER_MAPPINGS: [
 	Exclude<keyof EventEntity, "id" | "lecturers">,
@@ -18,8 +17,7 @@ const HEADER_MAPPINGS: [
 ] as const;
 
 export default function EventsTable() {
-	const { events, handleCreate, handleUpdate, handleDelete } =
-		useContext(EventsContext);
+	const { events, handleUpdate, handleDelete } = useContext(EventsContext);
 
 	const [sortBy, setSortBy] =
 		useState<Exclude<(typeof HEADER_MAPPINGS)[number][0], "lecturers">>(
@@ -49,49 +47,42 @@ export default function EventsTable() {
 	};
 
 	return (
-		<>
-			<Card>
-				<CardHeader>
-					<CardTitle>Събития</CardTitle>
-				</CardHeader>
-				<CardContent className="space-y-4">
-					<Table>
-						<TableHeader>
-							<TableRow>
-								{HEADER_MAPPINGS.map(([key, label]) => (
-									<TableHead
-										className="cursor-pointer select-none"
-										onClick={() => handleSort(key)}>
-										{label}
-										{sortIndicator(key)}
-									</TableHead>
-								))}
-
-								<TableHead>Лектори</TableHead>
-
-								<TableHead className="w-1">Действия</TableHead>
-							</TableRow>
-						</TableHeader>
-
-						<TableBody>
-							{filterAndSortEvents(
-								events,
-								[],
-								sortBy,
-								sortOrder
-							).map(event => (
-								<EventRow
-									event={event}
-									handleUpdate={handleUpdate}
-									handleDelete={handleDelete}
-								/>
+		<Card>
+			<CardHeader>
+				<CardTitle>Събития</CardTitle>
+			</CardHeader>
+			<CardContent className="space-y-4">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							{HEADER_MAPPINGS.map(([key, label]) => (
+								<TableHead
+									className="cursor-pointer select-none"
+									onClick={() => handleSort(key)}>
+									{label}
+									{sortIndicator(key)}
+								</TableHead>
 							))}
-						</TableBody>
-					</Table>
-				</CardContent>
-			</Card>
 
-			<CreateEvent handleCreate={handleCreate} />
-		</>
+							<TableHead>
+								Лектори (разделени със запетая)
+							</TableHead>
+
+							<TableHead className="w-1">Действия</TableHead>
+						</TableRow>
+					</TableHeader>
+
+					<TableBody>
+						{sortEvents(events, sortBy, sortOrder).map(event => (
+							<EventRow
+								event={event}
+								handleUpdate={handleUpdate}
+								handleDelete={handleDelete}
+							/>
+						))}
+					</TableBody>
+				</Table>
+			</CardContent>
+		</Card>
 	);
 }

@@ -1,200 +1,162 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { EventsContext } from "@/contexts/EventsContext";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import EventFilterRow, { type FilterValues } from "./EventsFilterRow";
 import {
-	FormItem,
-	FormLabel,
-	FormControl,
-	FormField,
-	FormMessage,
-	Form,
-} from "./ui/form";
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "./ui/select";
+import { Button } from "./ui/button";
 import type { EventFindManyDto } from "@/api";
-import { useForm } from "react-hook-form";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-type FilterValues = {
-	name: string;
-	city: string;
-	type: string;
-	dateFrom: string;
-	dateTo: string;
-	lecturer: string;
+type RowData = {
+	id: string;
+	values: Partial<FilterValues>;
 };
 
 export default function EventsFilter() {
 	const { setFilter } = useContext(EventsContext);
 
-	const form = useForm({
-		defaultValues: {
-			name: "",
-			city: "",
-			type: "",
-			dateFrom: "",
-			dateTo: "",
-			lecturer: "",
-		},
-	});
+	const [rows, setRows] = useState<RowData[]>([
+		{ id: crypto.randomUUID(), values: {} },
+	]);
 
-	const onSubmit = (values: FilterValues) => {
-		// trim whitespace from all fields
-		Object.keys(values).forEach(key => {
-			if (typeof values[key as keyof FilterValues] === "string") {
-				values[key as keyof FilterValues] = (
-					values[key as keyof FilterValues] as string
-				).trim();
-			}
-		});
+	const [operator, setOperator] = useState<"AND" | "OR" | "NOT">("AND");
 
-		const filter: EventFindManyDto = {};
-
-		if (values.name) {
-			filter.name = { contains: values.name, mode: "insensitive" };
-		}
-
-		if (values.city) {
-			filter.city = { contains: values.city, mode: "insensitive" };
-		}
-
-		if (values.type) {
-			filter.type = { contains: values.type, mode: "insensitive" };
-		}
-
-		if (values.lecturer) {
-			filter.lecturers = {
-				has: values.lecturer,
-			};
-		}
-
-		if (values.dateFrom || values.dateTo) {
-			filter.date = {};
-
-			if (values.dateFrom) {
-				filter.date.gte = new Date(values.dateFrom).toISOString();
-			}
-
-			if (values.dateTo) {
-				filter.date.lte = new Date(values.dateTo).toISOString();
-			}
-		}
-
-		setFilter(filter);
+	const addRow = () => {
+		setRows(rows => [...rows, { id: crypto.randomUUID(), values: {} }]);
 	};
 
-	const handleClear = () => {
-		form.reset();
+	const updateRow = (id: string, values: Partial<FilterValues>) => {
+		setRows(rows =>
+			rows.map(row => (row.id === id ? { ...row, values } : row))
+		);
+	};
+
+	const removeRow = (id: string) => {
+		setRows(rows => rows.filter(row => row.id !== id));
+	};
+
+	const applyFilter = () => {
+		const fullFilter = rows.reduce(
+			(acc: EventFindManyDto, row) => {
+				const filter: EventFindManyDto = {};
+				const values = row.values;
+
+				if (values.name) {
+					filter.name = {
+						contains: values.name,
+						mode: "insensitive",
+					};
+				}
+
+				if (values.city) {
+					filter.city = {
+						contains: values.city,
+						mode: "insensitive",
+					};
+				}
+
+				if (values.type) {
+					filter.type = {
+						contains: values.type,
+						mode: "insensitive",
+					};
+				}
+
+				if (values.lecturer) {
+					filter.lecturers = { has: values.lecturer };
+				}
+
+				if (values.dateFrom || values.dateTo) {
+					filter.date = {};
+
+					if (values.dateFrom) {
+						filter.date.gte = new Date(
+							values.dateFrom
+						).toISOString();
+					}
+
+					if (values.dateTo) {
+						filter.date.lte = new Date(values.dateTo).toISOString();
+					}
+				}
+
+				if (Object.keys(filter).length > 0) {
+					if (acc[operator]) {
+						acc[operator].push(filter);
+					} else {
+						acc[operator] = [filter];
+					}
+				}
+
+				return acc;
+			},
+			{
+				[operator]: [],
+			}
+		);
+
+		setFilter(fullFilter);
+	};
+
+	const clearAll = () => {
+		setRows([{ id: crypto.randomUUID(), values: {} }]);
+		setOperator("AND");
+
 		setFilter({});
 	};
 
 	return (
-		<Card>
+		<Card className="flex-1">
 			<CardHeader>
 				<CardTitle>Филтриране</CardTitle>
 			</CardHeader>
 			<CardContent className="space-y-4">
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="flex flex-wrap gap-4 items-end mb-6">
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Заглавие</FormLabel>
-									<FormControl>
-										<Input {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+				<p className="text-sm text-muted-foreground">
+					Можете да филтрирате събитията по различни критерии.
+					Използвайте "И", "ИЛИ" или "НЕ" операторите, за да
+					комбинирате филтрите. Всеки ред от филтри е еквивалентен на
+					различни редове с оператор "И".
+				</p>
+				<Select
+					value={operator}
+					onValueChange={value =>
+						setOperator(value as "AND" | "OR" | "NOT")
+					}>
+					<SelectTrigger className="w-[100px]">
+						<SelectValue />
+					</SelectTrigger>
 
-						<FormField
-							control={form.control}
-							name="city"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Град</FormLabel>
-									<FormControl>
-										<Input {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+					<SelectContent>
+						<SelectItem value="AND">И</SelectItem>
+						<SelectItem value="OR">ИЛИ</SelectItem>
+						<SelectItem value="NOT">НЕ</SelectItem>
+					</SelectContent>
+				</Select>
 
-						<FormField
-							control={form.control}
-							name="type"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Тип</FormLabel>
-									<FormControl>
-										<Input {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="lecturer"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Лектор</FormLabel>
-									<FormControl>
-										<Input {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="dateFrom"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>От дата</FormLabel>
-									<FormControl>
-										<Input type="date" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="dateTo"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>До дата</FormLabel>
-									<FormControl>
-										<Input type="date" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<div className="flex gap-2">
-							<Button type="submit" className="h-9">
-								Приложи
-							</Button>
-							<Button
-								type="button"
-								onClick={handleClear}
-								variant="outline"
-								className="h-9">
-								Изчисти
-							</Button>
+				{rows.map(row => (
+					<div key={row.id} className="flex items-start gap-4">
+						<div className="flex-1">
+							<EventFilterRow
+								onChange={values => updateRow(row.id, values)}
+								onRemove={() => removeRow(row.id)}
+								defaultValues={row.values as FilterValues}
+							/>
 						</div>
-					</form>
-				</Form>
+					</div>
+				))}
+
+				<div className="flex gap-2 mt-4">
+					<Button onClick={addRow}>Добави филтър</Button>
+					<Button onClick={applyFilter}>Приложи</Button>
+					<Button onClick={clearAll} variant="outline">
+						Изчисти
+					</Button>
+				</div>
 			</CardContent>
 		</Card>
 	);
