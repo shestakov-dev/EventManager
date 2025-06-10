@@ -57,4 +57,46 @@ export class EventFindManyDto implements Prisma.EventWhereInput {
 	})
 	@IsOptional()
 	lecturers?: Prisma.StringNullableListFilter<"Event">;
+
+	/**
+	 * Allow filtering by multiple conditions
+	 * @example { AND: [{ name: { contains: "Burgas" } }, { name: { contains: "Sofia" } }] }
+	 */
+	@ApiPropertyOptional({
+		description: "Allow filtering by multiple conditions",
+		example: [
+			{ name: { contains: "Burgas" } },
+			{ name: { contains: "Sofia" } },
+		],
+	})
+	@IsOptional()
+	AND?: Prisma.EventWhereInput | Prisma.EventWhereInput[];
+
+	/**
+	 * Allow filtering by multiple conditions with OR
+	 * @example { OR: [{ name: { contains: "Burgas" } }, { name: { contains: "Sofia" } }] }
+	 */
+	@ApiPropertyOptional({
+		description: "Allow filtering by multiple conditions with OR",
+		example: [
+			{ name: { contains: "Burgas" } },
+			{ name: { contains: "Sofia" } },
+		],
+	})
+	@IsOptional()
+	OR?: Prisma.EventWhereInput[];
+
+	/**
+	 * Allow filtering by multiple conditions with NOT
+	 * @example { NOT: [{ name: { contains: "Burgas" } }, { name: { contains: "Sofia" } }] }
+	 */
+	@ApiPropertyOptional({
+		description: "Allow filtering by multiple conditions with NOT",
+		example: [
+			{ name: { contains: "Burgas" } },
+			{ name: { contains: "Sofia" } },
+		],
+	})
+	@IsOptional()
+	NOT?: Prisma.EventWhereInput[];
 }

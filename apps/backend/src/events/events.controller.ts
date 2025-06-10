@@ -3,6 +3,7 @@ import {
 	Controller,
 	Delete,
 	Get,
+	HttpCode,
 	HttpStatus,
 	Param,
 	Patch,
@@ -34,24 +35,14 @@ export class EventsController {
 	}
 
 	/**
-	 * Get all events
-	 */
-	@Get()
-	@ApiGet({
-		type: [EventEntity],
-		errorResponses: [],
-	})
-	findAll() {
-		return this.eventsService.findAll();
-	}
-
-	/**
 	 * Get all events with a specific filter
 	 */
+	@HttpCode(HttpStatus.OK)
 	@Post("filtered")
 	@ApiPost({
 		type: [EventEntity],
-		errorResponses: [],
+		successResponse: HttpStatus.OK,
+		errorResponses: [HttpStatus.BAD_REQUEST],
 	})
 	findAllFiltered(@Body() filter: EventFindManyDto) {
 		return this.eventsService.findAllFiltered(filter);
