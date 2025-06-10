@@ -8,14 +8,17 @@ export default function Main() {
 	const { handleCreate } = useContext(EventsContext);
 
 	return (
-		<div className="flex flex-col lg:flex-row gap-6 mt-6 px-4 items-stretch">
-			<div className="flex-1 space-y-6">
-				<EventsFilter />
-				<EventsTable />
-			</div>
-
-			<div className="w-full lg:w-1/3 flex flex-col">
-				<CreateEvent handleCreate={handleCreate} />
+		<div className="w-full flex justify-center px-4">
+			<div className="w-full max-w-7xl flex flex-col gap-6 my-6">
+				<div className="mx-4">
+					<EventsFilter />
+				</div>
+				<div className="mx-4">
+					<EventsTable />
+				</div>
+				<div className="mx-4">
+					<CreateEvent handleCreate={handleCreate} />
+				</div>
 			</div>
 		</div>
 	);

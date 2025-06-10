@@ -52,6 +52,12 @@ export default function EventsTable() {
 				<CardTitle>Събития</CardTitle>
 			</CardHeader>
 			<CardContent className="space-y-4">
+				<p className="text-sm text-muted-foreground">
+					Таблицата показва всички събития, които са добавени в
+					системата. Можете да ги сортирате по заглавие, град, дата и
+					тип. За да редактирате или изтриете събитие, кликнете върху
+					съответния бутон в последната колона.
+				</p>
 				<Table>
 					<TableHeader>
 						<TableRow>

@@ -19,6 +19,7 @@ export function InputWithLabel({
 		<div className="grid w-full max-w-sm items-center gap-3">
 			<Label htmlFor={attribute}>{label}</Label>
 			<Input
+				required
 				type={type}
 				id={attribute}
 				placeholder={label}
