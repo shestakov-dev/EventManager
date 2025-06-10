@@ -6,34 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-/**
- * Filter in the query for events in Plovdiv during September.
-{
-  "city": {
-    "equals": "Plovdiv",
-    "mode": "insensitive"
-  },
-  "date": {
-    "gte": "2025-09-01T00:00:00.000Z",
-    "lte": "2025-09-30T00:00:00.000Z"
-  }
-}
- */
-
-/**
- * Filter in the query for events in Stara Zagora or Varna during Spring (March, April, May).
-{
-    "OR": [
-      { "city": { "equals": "Varna", "mode": "insensitive" } },
-      { "city": { "equals": "Stara Zagora", "mode": "insensitive" } }
-    ],
-    "date": {
-      "gte": "2025-03-01T00:00:00.000Z",
-      "lte": "2025-05-31T00:00:00.000Z"
-    }
-}
- */
-
 // This function can take in client-side filters
 // and sort the events based on the provided criteria
 export function sortEvents(
