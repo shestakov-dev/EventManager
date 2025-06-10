@@ -35,7 +35,7 @@ export default function CreateEvent({
 	};
 
 	return (
-		<Card className="space-y-6">
+		<Card>
 			<CardHeader>
 				<CardTitle>Създаване на събитие</CardTitle>
 			</CardHeader>

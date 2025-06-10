@@ -49,10 +49,10 @@ export default function EventsTable() {
 	};
 
 	return (
-		<div className="p-6 space-y-6">
+		<>
 			<Card>
 				<CardHeader>
-					<CardTitle>IT Събития</CardTitle>
+					<CardTitle>Събития</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					<Table>
@@ -92,6 +92,6 @@ export default function EventsTable() {
 			</Card>
 
 			<CreateEvent handleCreate={handleCreate} />
-		</div>
+		</>
 	);
 }

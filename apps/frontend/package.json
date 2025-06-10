@@ -13,6 +13,7 @@
 		"openapi:generate": "pnpx openapi-typescript-codegen --input http://localhost:8393/api-json --output src/api --client fetch"
 	},
 	"dependencies": {
+		"@hookform/resolvers": "^5.1.1",
 		"@radix-ui/react-label": "^2.1.7",
 		"@radix-ui/react-select": "^2.2.5",
 		"@radix-ui/react-slot": "^1.2.3",
@@ -23,10 +24,12 @@
 		"next-themes": "^0.4.6",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
+		"react-hook-form": "^7.57.0",
 		"serve": "^14.2.4",
 		"sonner": "^2.0.5",
 		"tailwind-merge": "^3.3.0",
-		"tailwindcss": "^4.1.8"
+		"tailwindcss": "^4.1.8",
+		"zod": "^3.25.57"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.25.0",
