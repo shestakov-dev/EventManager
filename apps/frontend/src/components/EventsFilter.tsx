@@ -110,6 +110,52 @@ export default function EventsFilter() {
 		setFilter({});
 	};
 
+	const applyPlovdivSeptemberFilter = () => {
+		const year = new Date().getFullYear();
+
+		const dateFrom = `${year}-09-01`;
+		const dateTo = `${year}-09-30`;
+
+		setOperator("AND");
+		setRows([
+			{
+				id: crypto.randomUUID(),
+				values: {
+					city: "Пловдив",
+					dateFrom,
+					dateTo,
+				},
+			},
+		]);
+	};
+
+	const applyStaraZagoraVarnaSpringFilter = () => {
+		const year = new Date().getFullYear();
+
+		const dateFrom = `${year}-03-01`;
+		const dateTo = `${year}-05-31`;
+
+		setOperator("OR");
+		setRows([
+			{
+				id: crypto.randomUUID(),
+				values: {
+					city: "Стара Загора",
+					dateFrom,
+					dateTo,
+				},
+			},
+			{
+				id: crypto.randomUUID(),
+				values: {
+					city: "Варна",
+					dateFrom,
+					dateTo,
+				},
+			},
+		]);
+	};
+
 	return (
 		<Card className="flex-1">
 			<CardHeader>
@@ -120,8 +166,27 @@ export default function EventsFilter() {
 					Можете да филтрирате събитията по различни критерии.
 					Използвайте "И", "ИЛИ" или "НЕ" операторите, за да
 					комбинирате филтрите. Всеки ред от филтри е еквивалентен на
-					различни редове с оператор "И".
+					различни редове с оператор "И". Можете да използвате
+					бутоните по-долу, за да приложите предварително зададени
+					филтри. Например, "Пловдив през септември" ще филтрира
+					събитията в Пловдив през септември, а "Стара Загора и Варна
+					през пролетта" ще филтрира събитията в Стара Загора и Варна
+					през пролетта.
 				</p>
+
+				<div className="flex items-center gap-2">
+					<Button
+						variant="outline"
+						onClick={applyPlovdivSeptemberFilter}>
+						Пловдив през септември
+					</Button>
+					<Button
+						variant="outline"
+						onClick={applyStaraZagoraVarnaSpringFilter}>
+						Стара Загора и Варна през пролетта
+					</Button>
+				</div>
+
 				<Select
 					value={operator}
 					onValueChange={value =>
