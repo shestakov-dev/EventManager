@@ -89,9 +89,7 @@ export default function CreateEvent({
 					onChange={e =>
 						setNewEvent(prev => ({
 							...prev,
-							lecturers: e.target.value
-								.split(",")
-								.map(lecturer => lecturer),
+							lecturers: e.target.value.split(","),
 						}))
 					}
 				/>

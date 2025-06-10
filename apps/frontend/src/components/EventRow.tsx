@@ -22,6 +22,40 @@ export default function EventRow({
 		lecturers: [],
 	});
 
+	const startEditting = () => {
+		// provide default values for editing
+		// and convert date to ISO string for input compatibility
+		setEditedEvent({
+			// remove the id so it doesn't get sent back
+			...{ ...event, id: undefined },
+			date: new Date(event.date).toISOString().split("T")[0],
+		});
+
+		setEditing(true);
+	};
+
+	const stopEditting = () => {
+		setEditing(false);
+		setEditedEvent({
+			name: "",
+			city: "",
+			date: "",
+			type: "",
+			lecturers: [],
+		});
+	};
+
+	const handleSave = () => {
+		// trim all lecturers and remove empty strings
+		edittedEvent.lecturers = edittedEvent.lecturers
+			.map(lecturer => lecturer.trim())
+			.filter(lecturer => lecturer !== "");
+
+		handleUpdate(event.id, edittedEvent);
+
+		stopEditting();
+	};
+
 	return editing ? (
 		<TableRow key={event.id}>
 			<TableCell>
@@ -75,26 +109,18 @@ export default function EventRow({
 			<TableCell>
 				<Input
 					placeholder="Лектори (разделени със запетая)"
-					value={edittedEvent.lecturers.join(", ")}
+					value={edittedEvent.lecturers.join(",")}
 					onChange={e =>
 						setEditedEvent(previousEdittedEvent => ({
 							...previousEdittedEvent,
-							lecturers: e.target.value
-								.split(",")
-								.map(lecturer => lecturer.trim()),
+							lecturers: e.target.value.split(","),
 						}))
 					}
 				/>
 			</TableCell>
 			<TableCell className="text-right space-x-2">
-				<Button
-					onClick={() => {
-						handleUpdate(event.id, edittedEvent);
-						setEditing(false);
-					}}>
-					Save
-				</Button>
-				<Button variant="outline" onClick={() => setEditing(false)}>
+				<Button onClick={handleSave}>Save</Button>
+				<Button variant="outline" onClick={stopEditting}>
 					Cancel
 				</Button>
 			</TableCell>
@@ -111,25 +137,7 @@ export default function EventRow({
 				{event.lecturers.map(lecturer => lecturer).join(", ")}
 			</TableCell>
 			<TableCell className="text-right space-x-2">
-				<Button
-					variant="outline"
-					size="sm"
-					onClick={() => {
-						// provide default values for editing
-						// and convert date to ISO string for input compatibility
-						setEditedEvent({
-							// remove the id so it doesn't get sent back
-							...{ ...event, id: undefined },
-							lecturers: event.lecturers.map(
-								lecturer => lecturer
-							),
-							date: new Date(event.date)
-								.toISOString()
-								.split("T")[0],
-						});
-
-						setEditing(true);
-					}}>
+				<Button variant="outline" size="sm" onClick={startEditting}>
 					Редактирай
 				</Button>
 				<Button
