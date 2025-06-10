@@ -18,9 +18,9 @@ export function sortEvents(
 	// "Dev Bites" should always come first, so we handle that separately
 	const sorted = [...events].sort((event1, event2) => {
 		// "Dev Bites" should always come first
-		if (event1.name === "Dev Bites") {
+		if (event1.name.toLowerCase() === "dev bites") {
 			return -1;
-		} else if (event2.name === "Dev Bites") {
+		} else if (event2.name.toLowerCase() === "dev bites") {
 			return 1;
 		}
 
