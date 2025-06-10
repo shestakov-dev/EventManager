@@ -31,17 +31,6 @@ export class EventsService {
         });
     }
     /**
-     * Get all events
-     * @returns EventEntity
-     * @throws ApiError
-     */
-    public static eventsControllerFindAll(): CancelablePromise<Array<EventEntity>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/events',
-        });
-    }
-    /**
      * Get all events with a specific filter
      * @param requestBody
      * @returns EventEntity
@@ -55,6 +44,9 @@ export class EventsService {
             url: '/events/filtered',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Invalid data was provided.`,
+            },
         });
     }
     /**

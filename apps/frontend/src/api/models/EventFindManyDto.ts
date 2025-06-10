@@ -23,5 +23,17 @@ export type EventFindManyDto = {
      * Filter by event lecturers
      */
     lecturers?: Record<string, any>;
+    /**
+     * Allow filtering by multiple conditions
+     */
+    AND?: Record<string, any>;
+    /**
+     * Allow filtering by multiple conditions with OR
+     */
+    OR?: Array<Record<string, any>>;
+    /**
+     * Allow filtering by multiple conditions with NOT
+     */
+    NOT?: Array<Record<string, any>>;
 };
 
