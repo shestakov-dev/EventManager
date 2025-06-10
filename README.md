@@ -5,6 +5,20 @@ This monorepo contains a system for managing IT events, created as an exercise p
 - **`apps/backend`** – NestJS backend for managing IT events
 - **`apps/frontend`** – React frontend for displaying events
 
+You can find this repo's GitHub repository [here](https://github.com/shestakov-dev/EventManager)
+
+## Table of Contents
+
+- [Project Context](#project-context)
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Quick Start (Recommended)](#quick-start-recommended)
+    - [Manual Setup](#manual-setup)
+- [Accessing the Application](#accessing-the-application)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Contributers](#contributers)
+
 ## Project Context
 
 This project was created to help manage and display information about IT conferences and events. Each event includes:
@@ -101,3 +115,7 @@ docker-compose.yaml
 - Manage and display IT events
 - Sort and filter events by multiple criteria
 - Special filtering for specific cities and event names
+
+## Contributers
+
+- [Alexander Shestakov](https://github.com/shestakov-dev)
